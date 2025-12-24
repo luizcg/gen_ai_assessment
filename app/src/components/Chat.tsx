@@ -2,9 +2,11 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { ChatMessage } from "./ChatMessage";
 import { ChatInput } from "./ChatInput";
-import { Bot, Loader2 } from "lucide-react";
+import { Bot, Loader2, Maximize2, Minimize2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Message {
   role: "user" | "assistant";
@@ -27,6 +29,7 @@ export function Chat() {
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const [context, setContext] = useState<ChatContext>({ isAuthenticated: false });
+  const [isMaximized, setIsMaximized] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -75,16 +78,36 @@ export function Chat() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto h-[600px] flex flex-col shadow-xl">
+    <Card className={cn(
+      "flex flex-col shadow-xl transition-all duration-300",
+      isMaximized 
+        ? "fixed inset-4 z-50 max-w-none h-auto" 
+        : "w-full max-w-2xl mx-auto h-[600px]"
+    )}>
       <CardHeader className="border-b bg-gradient-to-r from-blue-600 to-emerald-600 text-white rounded-t-lg">
         <CardTitle className="flex items-center gap-2">
           <Bot className="h-6 w-6" />
           TechStore Support
           {context.isAuthenticated && (
-            <span className="ml-auto text-sm font-normal opacity-90">
+            <span className="ml-auto text-sm font-normal opacity-90 mr-2">
               Logged in: {context.customerEmail}
             </span>
           )}
+          <Button
+            variant="ghost"
+            size="icon"
+            className={cn(
+              "text-white hover:bg-white/20",
+              !context.isAuthenticated && "ml-auto"
+            )}
+            onClick={() => setIsMaximized(!isMaximized)}
+          >
+            {isMaximized ? (
+              <Minimize2 className="h-5 w-5" />
+            ) : (
+              <Maximize2 className="h-5 w-5" />
+            )}
+          </Button>
         </CardTitle>
       </CardHeader>
       <CardContent className="flex-1 flex flex-col p-0 min-h-0">

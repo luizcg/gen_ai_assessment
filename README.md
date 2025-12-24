@@ -36,12 +36,13 @@ An AI-powered customer support chatbot built with **LangChain.js**, **Next.js**,
 - **🔧 MCP Tool Integration** - Real-time data from company backend
 - **💬 Conversational UI** - Modern chat interface with message history
 - **📱 Responsive Design** - Works on desktop and mobile devices
+- **📊 Observability** - Full tracing with Langfuse for monitoring and debugging
 
 ---
 
 ## 🎥 Demo
 
-**Live Demo:** [https://your-app.herokuapp.com](https://your-app.herokuapp.com)
+**Live Demo:** [https://techstore-support-chatbot-45b97833c047.herokuapp.com](https://techstore-support-chatbot-45b97833c047.herokuapp.com)
 
 ### Test Credentials
 
@@ -127,6 +128,7 @@ graph TB
 | **LLM** | OpenAI GPT-5.2 | Natural language processing |
 | **Protocol** | MCP (Streamable HTTP) | Backend integration |
 | **Language** | TypeScript | Type safety |
+| **Observability** | Langfuse | Tracing & monitoring |
 | **Deployment** | Heroku | Cloud hosting |
 
 ---
@@ -190,6 +192,7 @@ henry_asessment/
     │       ├── mcp-client.ts    # MCP server connection
     │       ├── mcp-tools.ts     # LangChain tool wrappers
     │       ├── langchain-agent.ts # Agent configuration
+    │       ├── langfuse-client.ts # Observability tracing
     │       └── utils.ts         # Utility functions
     ├── .env.local               # Environment variables (local)
     ├── .env.example             # Environment template
@@ -241,6 +244,49 @@ const searchProductsTool = new DynamicStructuredTool({
   },
 });
 ```
+
+---
+
+## 📊 Observability
+
+### Langfuse Integration
+
+This chatbot includes **Langfuse** for full observability of AI interactions, enabling monitoring, debugging, and analytics.
+
+### What's Tracked
+
+| Component | Description |
+|-----------|-------------|
+| **Traces** | Each conversation session |
+| **Generations** | LLM calls with input/output |
+| **Spans** | Individual tool calls (MCP) |
+| **Sessions** | Grouped by unique session ID |
+| **Users** | Identified by customer email |
+| **Metadata** | Auth status, tools used, iterations |
+
+### Features
+
+- **Session Grouping** - All messages in a conversation are grouped together
+- **Tool Call Tracking** - Each MCP tool call is tracked with input/output
+- **Error Tracking** - Failed operations are logged with error details
+- **Performance Metrics** - Latency and token usage monitoring
+- **Public Sharing** - Generate shareable links for specific traces
+
+### Configuration
+
+```bash
+# Required environment variables
+LANGFUSE_SECRET_KEY=sk-lf-xxx
+LANGFUSE_PUBLIC_KEY=pk-lf-xxx
+LANGFUSE_HOST=https://us.cloud.langfuse.com
+```
+
+### Viewing Traces
+
+1. Access [Langfuse Dashboard](https://us.cloud.langfuse.com)
+2. Navigate to **Traces** to see all conversations
+3. Click on a trace to see detailed breakdown
+4. Use **Sessions** view to see grouped conversations
 
 ---
 

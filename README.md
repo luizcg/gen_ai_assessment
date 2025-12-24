@@ -73,21 +73,21 @@ Bot: Guides through order placement process
 
 ```mermaid
 graph TB
-    subgraph Heroku["☁️ Heroku"]
+    subgraph Heroku["Heroku Cloud"]
         subgraph NextJS["Next.js Application"]
-            subgraph Frontend["🎨 Frontend"]
-                UI[Chat.tsx<br/>- Messages<br/>- Input<br/>- Auth]
+            subgraph Frontend["Frontend"]
+                UI["Chat.tsx<br/>Messages<br/>Input<br/>Auth"]
             end
             
-            subgraph Backend["⚙️ API Routes"]
-                API[/api/chat]
-                Agent[LangChain Agent<br/>- ChatOpenAI GPT-5.2<br/>- MCP Tools 8<br/>- Context Management]
+            subgraph Backend["API Routes"]
+                API["API /api/chat"]
+                Agent["LangChain Agent<br/>ChatOpenAI GPT-5.2<br/>MCP Tools<br/>Context Management"]
             end
         end
     end
     
-    OpenAI[🤖 OpenAI API<br/>GPT-5.2<br/>- Chat<br/>- Tool calls<br/>- Reasoning]
-    MCP[🔌 MCP Server<br/>order-mcp<br/>- Products<br/>- Customers<br/>- Orders]
+    OpenAI["OpenAI API<br/>GPT-5.2<br/>Chat<br/>Tool calls<br/>Reasoning"]
+    MCP["MCP Server<br/>order-mcp<br/>Products<br/>Customers<br/>Orders"]
     
     UI -->|HTTP POST| API
     API --> Agent

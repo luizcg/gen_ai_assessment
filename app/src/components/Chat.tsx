@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChatMessage } from "./ChatMessage";
@@ -19,7 +19,12 @@ interface ChatContext {
   isAuthenticated: boolean;
 }
 
+function generateSessionId() {
+  return `session-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+}
+
 export function Chat() {
+  const sessionId = useMemo(() => generateSessionId(), []);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
@@ -48,7 +53,7 @@ export function Chat() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages, context }),
+        body: JSON.stringify({ messages: newMessages, context, sessionId }),
       });
 
       const data = await response.json();

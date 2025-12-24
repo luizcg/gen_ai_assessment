@@ -68,6 +68,24 @@ User: "I want to order a 27-inch monitor"
 Bot: Guides through order placement process
 ```
 
+### Screenshots
+
+<div align="center">
+
+#### Chat Interface
+![Chat Interface](images/chat-interface.png)
+*Modern chat interface with gradient header and responsive design*
+
+#### Customer Authentication
+![Authentication](images/authentication.png)
+*Secure customer login with email and PIN verification*
+
+#### Order History
+![Order List](images/order-list.png)
+*Formatted order history with markdown tables*
+
+</div>
+
 ---
 
 ## 🏗 Architecture
